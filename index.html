@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOCTIS · Chord & arpeggio generator for FL Studio · GIANBEAT MUSIC</title>
+<meta name="description" content="NOCTIS is a VST3 plugin that generates chord progressions, arpeggios, bass and melodies with color and mood. Drag the MIDI straight into FL Studio.">
+<meta property="og:title" content="NOCTIS · Chords that don't sound like a beginner">
+<meta property="og:description" content="Chord & arpeggio generator plugin by GIANBEAT MUSIC.">
+<meta property="og:image" content="noctis-plugin.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="noctis-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=VT323&display=swap" rel="stylesheet">
+<style>
+  /* ===================== CONFIGURACIÓN (edita aquí) ===================== */
+  /* El precio y el link de compra están en el <script> al final del archivo */
+
+  :root{
+    --cream:#efe6dd; --cream2:#e6dacf; --card:#f7f2ec; --edge:#cbbcae;
+    --ink:#2a2824; --soft:#6f675e;
+    --yellow:#f6c935; --yellowEdge:#c99a10;
+    --orange:#f0613a; --orangeEdge:#b8401f;
+    --blue:#3f57e6;   --blueEdge:#2a3cb0;
+    --red:#e8452c; --green:#2fbf71; --pink:#ef5a86;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Inter",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  .label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:20;background:rgba(239,230,221,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand img{width:40px;height:40px;border-radius:11px;box-shadow:0 4px 10px rgba(0,0,0,.18)}
+  .brand b{font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .brand small{display:block;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--soft);margin-top:-3px}
+  .links{display:flex;gap:26px;align-items:center}
+  .links a{text-decoration:none;font-size:15px;font-weight:500;color:var(--soft)}
+  .links a:hover{color:var(--ink)}
+  .links a.btn{color:#fff}
+
+  /* Selector de idioma EN | ES (igual que en el plugin) */
+  .lang{display:inline-flex;background:#ded3c6;border-radius:99px;padding:3px;box-shadow:inset 0 1px 3px rgba(0,0,0,.15)}
+  .lang button{border:0;background:transparent;font:700 12px "Inter";letter-spacing:.08em;color:var(--soft);padding:6px 12px;border-radius:99px;cursor:pointer}
+  .lang button.on{background:var(--ink);color:var(--card)}
+
+  /* BOTONES TIPO TECLA 3D */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:800 16px "Inter";letter-spacing:.02em;text-decoration:none;cursor:pointer;border:0;
+       padding:16px 28px;border-radius:14px;transition:transform .08s, box-shadow .08s}
+  .btn:active{transform:translateY(6px)}
+  .btn-yellow{background:var(--yellow);color:var(--ink);box-shadow:0 7px 0 var(--yellowEdge),0 16px 30px rgba(201,154,16,.35)}
+  .btn-yellow:active{box-shadow:0 1px 0 var(--yellowEdge)}
+  .btn-orange{background:var(--orange);color:#fff;box-shadow:0 7px 0 var(--orangeEdge),0 16px 30px rgba(240,97,58,.35)}
+  .btn-orange:active{box-shadow:0 1px 0 var(--orangeEdge)}
+  .btn-ghost{background:var(--card);color:var(--ink);box-shadow:0 6px 0 var(--edge),0 12px 24px rgba(0,0,0,.08)}
+  .btn-ghost:active{box-shadow:0 1px 0 var(--edge)}
+  nav .btn{padding:10px 18px;font-size:14px;border-radius:11px;box-shadow:0 5px 0 var(--orangeEdge)}
+
+  /* HERO */
+  .hero{padding:56px 0 30px;position:relative;overflow:hidden}
+  .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+  .tag{display:inline-flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--edge);padding:7px 14px;border-radius:99px;color:var(--soft)}
+  .tag i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+  h1{font-size:clamp(40px,5.8vw,72px);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin:22px 0 18px}
+  h1 em{font-style:normal;color:var(--orange)}
+  .lead{font-size:clamp(17px,1.8vw,20px);color:var(--soft);max-width:560px;margin-bottom:32px}
+  .cta{display:flex;gap:16px;flex-wrap:wrap}
+  .note{margin-top:18px;color:var(--soft);font-size:14px}
+  .robot{position:relative;text-align:center}
+  .robot::before{content:"";position:absolute;left:50%;top:55%;width:460px;height:460px;transform:translate(-50%,-50%);
+                 background:radial-gradient(closest-side,rgba(246,201,53,.45),rgba(246,201,53,0));z-index:0}
+  .robot img{position:relative;z-index:1;width:min(100%,360px);height:auto;filter:drop-shadow(0 30px 30px rgba(60,40,20,.28))}
+  .dots{position:absolute;right:8%;bottom:14%;display:flex;gap:8px;z-index:2}
+  .dots span{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),inset 0 3px 5px rgba(255,255,255,.5),0 4px 8px rgba(0,0,0,.2)}
+
+  .shot{margin:48px auto 0;max-width:920px;position:relative}
+  .shot img{width:100%;height:auto;display:block;border-radius:30px;box-shadow:0 40px 80px rgba(60,40,20,.28),0 8px 18px rgba(0,0,0,.12)}
+
+  /* SECCIONES */
+  section{padding:90px 0}
+  .kicker{color:var(--orange);margin-bottom:10px}
+  h2{font-size:clamp(30px,4vw,46px);letter-spacing:-.035em;line-height:1.08;font-weight:800;margin-bottom:14px}
+  .sub{color:var(--soft);font-size:18px;max-width:640px}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  .card{background:var(--card);border-radius:24px;padding:28px;box-shadow:0 6px 0 var(--edge),0 18px 36px rgba(60,40,20,.08)}
+  .card h3{font-size:19px;margin:16px 0 8px;letter-spacing:-.01em;font-weight:800}
+  .card p{color:var(--soft);font-size:15.5px}
+  .knob{width:48px;height:48px;border-radius:50%;position:relative;
+        box-shadow:inset 0 -6px 0 rgba(0,0,0,.22),inset 0 4px 8px rgba(255,255,255,.5),0 6px 12px rgba(0,0,0,.18)}
+  .knob::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid #1b1b1d;z-index:-1}
+
+  /* Pantalla retro (como la del plugin) */
+  .lcd{background:linear-gradient(#2f6d5a,#16302a);border-radius:22px;padding:26px 30px;border:10px solid #1b1b1d;color:#fff;
+       box-shadow:0 24px 50px rgba(0,0,0,.25);font-family:"VT323",monospace}
+  .lcd .name{font-size:64px;line-height:1;background:linear-gradient(#ffe066,#f07a2a);-webkit-background-clip:text;background-clip:text;color:transparent;
+             filter:drop-shadow(2px 3px 0 #1a0f08)}
+  .lcd .notes{font-size:26px;opacity:.9}
+  .lcd .ctx{font-size:22px;color:#bff3e4;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .dark{background:#1f1e1c;color:#efe9e1}
+  .dark .sub{color:#aaa49a}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  .step{border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:28px;background:#292826}
+  .step .n{font:400 54px "VT323";color:var(--yellow);line-height:1}
+  .step h3{margin:12px 0 6px;font-size:19px;font-weight:800}
+  .step p{color:#aaa49a;font-size:15.5px}
+
+  .genres{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .genres span{background:var(--card);border-radius:99px;padding:9px 16px;font-size:14px;font-weight:500;box-shadow:0 4px 0 var(--edge)}
+  .genres span.soon{opacity:.55;box-shadow:none;border:1.5px dashed var(--edge)}
+
+  /* PRECIO */
+  .price-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center;max-width:900px;margin:40px auto 0}
+  .price-wrap img{width:100%;max-width:300px;justify-self:center;filter:drop-shadow(0 26px 26px rgba(60,40,20,.25))}
+  .price-box{background:var(--card);border-radius:32px;padding:40px 36px;text-align:center;box-shadow:0 8px 0 var(--edge),0 30px 70px rgba(60,40,20,.16)}
+  .price{font-size:64px;font-weight:800;letter-spacing:-.05em;line-height:1}
+  .old{color:var(--soft);text-decoration:line-through;margin-left:10px;font-size:24px;font-weight:500}
+  .incl{list-style:none;text-align:left;margin:26px auto 30px;max-width:400px}
+  .incl li{padding:9px 0 9px 32px;position:relative;border-bottom:1px solid rgba(0,0,0,.06)}
+  .incl li::before{content:"";position:absolute;left:4px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
+  .pay{margin-top:16px;font-size:14px;color:var(--soft)}
+
+  /* FAQ */
+  .faq{max-width:800px;margin:40px auto 0}
+  details{background:var(--card);border-radius:18px;padding:20px 24px;margin-bottom:12px;box-shadow:0 4px 0 var(--edge)}
+  summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--orange);font-size:22px;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--soft);margin-top:10px}
+
+  footer{padding:46px 0;border-top:1px solid rgba(0,0,0,.08);color:var(--soft);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{text-decoration:none}
+
+  @media (max-width:880px){
+    .hero .grid,.price-wrap{grid-template-columns:1fr}
+    .robot{order:-1}
+    .robot img{width:220px}
+    .grid3,.steps{grid-template-columns:1fr}
+    .links a:not(.btn){display:none}
+    section{padding:64px 0}
+    .price-box{padding:34px 22px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="brand"><img src="noctis-icon.png" alt="NOCTIS"><span><b>NOCTIS</b><small>GIANBEAT MUSIC</small></span></a>
+    <div class="links">
+      <a href="#features" data-i18n="nav_features">Features</a>
+      <a href="#how" data-i18n="nav_how">How it works</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>
+      <a href="#buy" class="btn btn-orange" data-i18n="nav_buy">Buy</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="tag label"><i></i> <span data-i18n="tag">VST3 · Windows · macOS (beta)</span></span>
+        <h1 data-i18n="h1" data-html>Chords that <em>don't sound</em> like a beginner.</h1>
+        <p class="lead" data-i18n="lead">NOCTIS generates chord progressions, arpeggios, bass and melodies with real color and mood. Play a note, hear the idea, and drag the MIDI straight into your Piano Roll.</p>
+        <div class="cta">
+          <a href="#buy" class="btn btn-yellow" data-i18n="cta_buy">Get NOCTIS</a>
+          <a href="#how" class="btn btn-ghost" data-i18n="cta_how">See how it works</a>
+        </div>
+        <p class="note" data-i18n="note">Made by GIANBEAT · reggaeton & urban music producer</p>
+      </div>
+      <div class="robot">
+        <img src="noctis-robot.png" alt="NOCTIS robot mascot with headphones and a mini keyboard">
+        <div class="dots"><span style="background:var(--red)"></span><span style="background:var(--yellow)"></span><span style="background:var(--blue)"></span><span style="background:var(--green)"></span></div>
+      </div>
+    </div>
+    <div class="shot"><img src="noctis-plugin.jpg" alt="NOCTIS plugin interface: retro screen, COLOR and MOOD knobs, NEW VARIATION button and four colored chord pads" width="920" height="750"></div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <p class="kicker label" data-i18n="feat_k">Features</p>
+    <h2 data-i18n="feat_h">Everything you need to get unstuck.</h2>
+    <p class="sub" data-i18n="feat_s">Built for producers who already make beats and want fresh harmonic ideas in seconds.</p>
+    <div class="grid3">
+      <div class="card"><div class="knob" style="background:var(--yellow)"></div><h3 data-i18n="f1h">NEW VARIATION</h3><p data-i18n="f1p">One click and NOCTIS writes a new progression that fits the genre, key and mood you chose.</p></div>
+      <div class="card"><div class="knob" style="background:var(--red)"></div><h3 data-i18n="f2h">COLOR knob</h3><p data-i18n="f2p">From clean triads to sevenths, extensions and altered chords — the harmony stays correct.</p></div>
+      <div class="card"><div class="knob" style="background:var(--blue)"></div><h3 data-i18n="f3h">Arps & groove</h3><p data-i18n="f3p">9 arpeggio patterns (including dembow 3-3-2), 9 chord rhythms, strum, swing and humanize.</p></div>
+      <div class="card"><div class="knob" style="background:var(--green)"></div><h3 data-i18n="f4h">Drag to FL Studio</h3><p data-i18n="f4p">Export the progression, the bass/808 or a melody as MIDI. Drag, drop, done.</p></div>
+      <div class="card"><div class="knob" style="background:var(--orange)"></div><h3 data-i18n="f5h">Voice leading</h3><p data-i18n="f5p">Chords connect with the smallest movement, or pick the inversion yourself. Sounds like a keys player.</p></div>
+      <div class="card"><div class="knob" style="background:var(--ink)"></div><h3 data-i18n="f6h">Sounds included</h3><p data-i18n="f6p">Real grand piano (Salamander samples), Rhodes, pads, supersaw, pluck, bells and organ.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="dark">
+  <div class="wrap">
+    <p class="kicker label" data-i18n="how_k">How it works</p>
+    <h2 data-i18n="how_h">From zero to progression in 3 steps.</h2>
+    <p class="sub" data-i18n="how_s">No music theory required. NOCTIS does the technical part — you decide what sounds good.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3 data-i18n="s1h">Pick genre & mood</h3><p data-i18n="s1p">Choose the subgenre, the key and minor or major. Turn MOOD to change the vibe.</p></div>
+      <div class="step"><div class="n">02</div><h3 data-i18n="s2h">Play & listen</h3><p data-i18n="s2p">Play a note on your MIDI keyboard and NOCTIS answers in that key. Hit NEW VARIATION for more.</p></div>
+      <div class="step"><div class="n">03</div><h3 data-i18n="s3h">Drag the MIDI</h3><p data-i18n="s3p">Take chords, bass or melody into FL Studio. Hold Alt when dropping to keep what you already have.</p></div>
+    </div>
+    <div class="lcd" style="margin-top:44px;max-width:620px">
+      <div class="name">Am<span class="notes" style="color:#fff;-webkit-text-fill-color:#fff;filter:none;margin-left:16px">A · C · E</span></div>
+      <div class="ctx">Romantic · A minor · i – VI – III – VII ★</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker label" data-i18n="gen_k">Genres</p>
+    <h2 data-i18n="gen_h">Starts with reggaeton. Keeps growing.</h2>
+    <p class="sub" data-i18n="gen_s">This version includes 8 reggaeton subgenres with 41 base progressions — each one changes with COLOR, MOOD and NEW VARIATION.</p>
+    <div class="genres">
+      <span data-i18n="g1">Romantic</span><span>Perreo</span><span>Reggaeton Pop</span><span>Neoperreo</span><span>Trapetón</span><span>Reggaeton R&amp;B</span><span data-i18n="g7">Classic Reggaeton</span><span data-i18n="g8">Alternative Reggaeton</span>
+      <span class="soon" data-i18n="soon1">Trap · soon</span><span class="soon" data-i18n="soon2">Drill · soon</span><span class="soon" data-i18n="soon3">R&amp;B · soon</span><span class="soon" data-i18n="soon4">Hip-Hop · soon</span>
+    </div>
+  </div>
+</section>
+
+<section id="buy" style="background:var(--cream2)">
+  <div class="wrap" style="text-align:center">
+    <p class="kicker label" data-i18n="buy_k">Launch price</p>
+    <h2 data-i18n="buy_h">Get NOCTIS today.</h2>
+    <div class="price-wrap">
+      <img src="noctis-robot.png" alt="">
+      <div class="price-box">
+        <div class="price"><span id="price">US$15</span><span class="old" id="oldPrice"></span></div>
+        <p style="color:var(--soft);margin-top:8px" data-i18n="once">One-time payment · no subscription</p>
+        <ul class="incl">
+          <li data-i18n="i1">VST3 plugin + standalone app for Windows</li>
+          <li data-i18n="i2">macOS version (VST3 + AU) in beta</li>
+          <li data-i18n="i3">License for 1 computer (move it whenever you switch computers)</li>
+          <li data-i18n="i4">Free updates with new genres</li>
+          <li data-i18n="i5">Installer in English and Spanish</li>
+        </ul>
+        <a id="buyBtn" href="#" class="btn btn-orange" style="width:100%" data-i18n="buy_btn">Buy now</a>
+        <p class="pay" data-i18n="pay">Secure card payment · processed by Polar</p>
+        <p class="pay" data-i18n="pay2">Your license key arrives by email instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="kicker label" style="text-align:center" data-i18n="faq_k">FAQ</p>
+    <h2 style="text-align:center" data-i18n="faq_h">Before you buy.</h2>
+    <div class="faq">
+      <details><summary data-i18n="q1">Does it work in FL Studio?</summary><p data-i18n="a1">Yes. NOCTIS is a VST3, so it works in FL Studio and any Windows DAW that supports VST3 (Ableton, Reaper, Studio One, Cubase…).</p></details>
+      <details><summary data-i18n="q2">Does it work on Mac?</summary><p data-i18n="a2">The macOS version (VST3 and AU for Logic/GarageBand) is in beta. It isn't signed by Apple yet, so the first time you open the installer you'll need to right-click it and choose Open.</p></details>
+      <details><summary data-i18n="q3">How do I activate my license?</summary><p data-i18n="a3">After buying you get an email with your key. Open NOCTIS, press PASTE and ACTIVATE. Internet is only needed that first time; then it works offline.</p></details>
+      <details><summary data-i18n="q4">On how many computers can I use it?</summary><p data-i18n="a4">Each license works on 1 computer. If you switch computers, press “Release this PC” on the old one and activate it on the new one. If your computer broke, contact us.</p></details>
+      <details><summary data-i18n="q5">Can I try it first?</summary><p data-i18n="a5">NOCTIS needs a license to work. Watch it in action on the GIANBEAT YouTube channel before buying.</p></details>
+      <details><summary data-i18n="q6">Can I use the MIDI in songs I sell?</summary><p data-i18n="a6">Yes, 100% royalty-free. What you create with NOCTIS is yours.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="y">2026</span> GIANBEAT MUSIC · NOCTIS</span>
+    <span><a href="https://gianbeatmusic.com">gianbeatmusic.com</a> · <a href="https://youtube.com/@gianbeatofficial">YouTube</a> · <a href="mailto:gianbeatmusic@gmail.com">gianbeatmusic@gmail.com</a></span>
+  </div>
+</footer>
+
+<script>
+/* ===================== CONFIGURACIÓN ===================== */
+const CHECKOUT_URL = "";          // ← pega aquí el link de compra de Polar (tienda REAL)
+const PRICE        = "US$15";     // ← precio
+const OLD_PRICE    = "";          // ← precio tachado (vacío = sin precio tachado)
+
+/* ===================== Textos en español ===================== */
+const ES = {
+  nav_features:"Funciones", nav_how:"Cómo funciona", nav_faq:"Preguntas", nav_buy:"Comprar",
+  tag:"VST3 · Windows · macOS (beta)",
+  h1:'Acordes que <em>no suenan</em> a principiante.',
+  lead:"NOCTIS genera progresiones, arpegios, bajos y melodías con color y mood de verdad. Toca una nota, escucha la idea y arrastra el MIDI directo a tu Piano Roll.",
+  cta_buy:"Quiero NOCTIS", cta_how:"Ver cómo funciona",
+  note:"Hecho por GIANBEAT · productor de reggaetón y música urbana",
+  feat_k:"Funciones", feat_h:"Todo lo que necesitas para salir del bloqueo.",
+  feat_s:"Pensado para productores que ya saben hacer beats y quieren ideas armónicas nuevas en segundos.",
+  f1h:"NUEVA VARIANTE", f1p:"Un clic y NOCTIS escribe una progresión nueva que encaja con el género, la tonalidad y el mood que elegiste.",
+  f2h:"Perilla COLOR", f2p:"De tríadas limpias a séptimas, extensiones y acordes alterados, sin perder la armonía correcta.",
+  f3h:"Arpegios y groove", f3p:"9 patrones de arpegio (incluido Dembow 3-3-2), 9 ritmos de acordes, strum, swing y humanización.",
+  f4h:"Arrastra a FL Studio", f4p:"Exporta la progresión, el bajo/808 o una melodía como MIDI. Arrastras, sueltas y listo.",
+  f5h:"Voice leading", f5p:"Los acordes se conectan con el menor movimiento, o eliges tú la inversión. Suena como un tecladista.",
+  f6h:"Sonidos incluidos", f6p:"Piano de cola real (samples Salamander), Rhodes, pads, supersaw, pluck, campanas y órgano.",
+  how_k:"Cómo funciona", how_h:"De cero a progresión en 3 pasos.",
+  how_s:"Sin teoría musical obligatoria. NOCTIS hace la parte técnica; tú decides qué suena bien.",
+  s1h:"Elige género y mood", s1p:"Selecciona el subgénero, la nota y si es menor o mayor. Gira MOOD para cambiar la intención.",
+  s2h:"Toca y escucha", s2p:"Toca una nota en tu teclado MIDI y NOCTIS responde en esa tonalidad. Pulsa NUEVA VARIANTE para más.",
+  s3h:"Arrastra el MIDI", s3p:"Lleva acordes, bajo o melodía a FL Studio. Mantén Alt al soltar para no borrar lo que ya tienes.",
+  gen_k:"Géneros", gen_h:"Empieza en el reggaetón. Y sigue creciendo.",
+  gen_s:"Esta versión trae 8 subgéneros de reggaetón con 41 progresiones base, y cada una cambia con COLOR, MOOD y NUEVA VARIANTE.",
+  g1:"Romántico", g7:"Reggaetón Clásico", g8:"Reggaetón Alternativo",
+  soon1:"Trap · pronto", soon2:"Drill · pronto", soon3:"R&B · pronto", soon4:"Hip-Hop · pronto",
+  buy_k:"Precio de lanzamiento", buy_h:"Llévate NOCTIS hoy.",
+  once:"Pago único · sin suscripción",
+  i1:"Plugin VST3 + app independiente para Windows", i2:"Versión macOS (VST3 + AU) en beta",
+  i3:"Licencia para 1 computadora (la mueves cuando cambies de PC)", i4:"Actualizaciones gratis con nuevos géneros",
+  i5:"Instalador en español e inglés",
+  buy_btn:"Comprar ahora", pay:"Pago seguro con tarjeta · procesado por Polar", pay2:"Tu código de licencia llega a tu correo al instante.",
+  faq_k:"Preguntas frecuentes", faq_h:"Antes de comprar.",
+  q1:"¿Funciona en FL Studio?", a1:"Sí. NOCTIS es VST3, así que funciona en FL Studio y en cualquier DAW de Windows que acepte VST3 (Ableton, Reaper, Studio One, Cubase…).",
+  q2:"¿Funciona en Mac?", a2:"La versión para macOS (VST3 y AU para Logic/GarageBand) está en beta. Aún no está firmada por Apple, así que la primera vez tendrás que abrir el instalador con clic derecho > Abrir.",
+  q3:"¿Cómo activo mi licencia?", a3:"Después de comprar te llega un correo con tu código. Abres NOCTIS, pulsas PEGAR y ACTIVAR. Solo se necesita internet esa primera vez; luego funciona sin conexión.",
+  q4:"¿En cuántas computadoras puedo usarlo?", a4:"Cada licencia funciona en 1 computadora. Si cambias de PC, pulsa “Liberar esta PC” en la antigua y actívalo en la nueva. Si tu PC se malogró, escríbenos.",
+  q5:"¿Puedo probarlo antes?", a5:"NOCTIS necesita licencia para funcionar. Míralo en acción en el canal de YouTube de GIANBEAT antes de comprar.",
+  q6:"¿Puedo usar los MIDI en canciones que venda?", a6:"Sí, 100% libres de regalías. Lo que crees con NOCTIS es tuyo."
+};
+
+/* ===================== Idioma ===================== */
+const EN = {};
+document.querySelectorAll('[data-i18n]').forEach(el => EN[el.dataset.i18n] = el.innerHTML);
+
+function setLang(lang){
+  const dict = lang === 'es' ? ES : EN;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = dict[el.dataset.i18n];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+  try { localStorage.setItem('noctis-lang', lang); } catch(e) {}
+}
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+let saved = null;
+try { saved = localStorage.getItem('noctis-lang'); } catch(e) {}
+setLang(saved || ((navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en'));
+
+/* ===================== Precio y compra ===================== */
+document.getElementById('price').textContent = PRICE;
+const old = document.getElementById('oldPrice');
+if (OLD_PRICE) old.textContent = OLD_PRICE; else old.remove();
+
+const buy = document.getElementById('buyBtn');
+if (CHECKOUT_URL) buy.href = CHECKOUT_URL;
+else buy.addEventListener('click', e => { e.preventDefault(); alert('Coming soon / Muy pronto'); });
+
+document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
