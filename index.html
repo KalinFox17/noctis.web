@@ -113,7 +113,9 @@
 
   .genres{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
   .genres span{background:var(--card);border-radius:99px;padding:9px 16px;font-size:14px;font-weight:500;box-shadow:0 4px 0 var(--edge)}
-  .genres span.soon{opacity:.55;box-shadow:none;border:1.5px dashed var(--edge)}
+  .genre-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px 28px;margin-top:28px}
+  .genre-group h3{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);margin-bottom:2px}
+  .genre-group .genres{margin-top:10px}
 
   /* PRECIO */
   .price-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center;max-width:900px;margin:40px auto 0}
@@ -195,7 +197,7 @@
     <div class="grid3">
       <div class="card"><div class="knob" style="background:var(--yellow)"></div><h3 data-i18n="f1h">NEW VARIATION</h3><p data-i18n="f1p">One click and NOCTIS writes a new progression that fits the genre, key and mood you chose.</p></div>
       <div class="card"><div class="knob" style="background:var(--red)"></div><h3 data-i18n="f2h">COLOR knob</h3><p data-i18n="f2p">From clean triads to sevenths, extensions and altered chords — the harmony stays correct.</p></div>
-      <div class="card"><div class="knob" style="background:var(--blue)"></div><h3 data-i18n="f3h">Arps & groove</h3><p data-i18n="f3p">9 arpeggio patterns (including dembow 3-3-2), 9 chord rhythms, strum, swing and humanize.</p></div>
+      <div class="card"><div class="knob" style="background:var(--blue)"></div><h3 data-i18n="f3h">Arps & groove</h3><p data-i18n="f3p">17 arpeggio patterns (dembow 3-3-2, trap roll, drill, amapiano log drum…), 17 chord rhythms, strum, swing and humanize.</p></div>
       <div class="card"><div class="knob" style="background:var(--green)"></div><h3 data-i18n="f4h">Drag to FL Studio</h3><p data-i18n="f4p">Export the progression, the bass/808 or a melody as MIDI. Drag, drop, done.</p></div>
       <div class="card"><div class="knob" style="background:var(--orange)"></div><h3 data-i18n="f5h">Voice leading</h3><p data-i18n="f5p">Chords connect with the smallest movement, or pick the inversion yourself. Sounds like a keys player.</p></div>
       <div class="card"><div class="knob" style="background:var(--ink)"></div><h3 data-i18n="f6h">Sounds included</h3><p data-i18n="f6p">Real grand piano (Salamander samples), Rhodes, pads, supersaw, pluck, bells and organ.</p></div>
@@ -223,11 +225,15 @@
 <section>
   <div class="wrap">
     <p class="kicker label" data-i18n="gen_k">Genres</p>
-    <h2 data-i18n="gen_h">Starts with reggaeton. Keeps growing.</h2>
-    <p class="sub" data-i18n="gen_s">This version includes 8 reggaeton subgenres with 41 base progressions — each one changes with COLOR, MOOD and NEW VARIATION.</p>
-    <div class="genres">
-      <span data-i18n="g1">Romantic</span><span>Perreo</span><span>Reggaeton Pop</span><span>Neoperreo</span><span>Trapetón</span><span>Reggaeton R&amp;B</span><span data-i18n="g7">Classic Reggaeton</span><span data-i18n="g8">Alternative Reggaeton</span>
-      <span class="soon" data-i18n="soon1">Trap · soon</span><span class="soon" data-i18n="soon2">Drill · soon</span><span class="soon" data-i18n="soon3">R&amp;B · soon</span><span class="soon" data-i18n="soon4">Hip-Hop · soon</span>
+    <h2 data-i18n="gen_h">6 urban genres. 25 presets. Ready to go.</h2>
+    <p class="sub" data-i18n="gen_s">140 base progressions — each one changes with COLOR, MOOD and NEW VARIATION. Pick a preset and NOCTIS also sets the typical chord rhythm and arpeggio for that style.</p>
+    <div class="genre-groups">
+      <div class="genre-group"><h3 data-i18n="gg1">Reggaeton</h3><div class="genres"><span data-i18n="g1">Romantic</span><span>Perreo</span><span>Reggaeton Pop</span><span>Neoperreo</span><span>Trapetón</span><span>Reggaeton R&amp;B</span><span data-i18n="g7">Classic Reggaeton</span><span data-i18n="g8">Alternative Reggaeton</span></div></div>
+      <div class="genre-group"><h3>Afro</h3><div class="genres"><span>Afrobeat</span><span>Afro-pop</span><span>Afro-swing</span><span>Amapiano</span></div></div>
+      <div class="genre-group"><h3>Trap</h3><div class="genres"><span>Trap</span><span>Dark Trap</span><span>Melodic Trap</span></div></div>
+      <div class="genre-group"><h3>Drill</h3><div class="genres"><span>UK Drill</span><span>NY Drill</span><span>Sexy Drill</span><span>Melodic Drill</span></div></div>
+      <div class="genre-group"><h3>Sad / Emo</h3><div class="genres"><span>Sad Beat</span><span>Emo Beat</span><span>Melodic Beat</span></div></div>
+      <div class="genre-group"><h3>R&amp;B / Smooth</h3><div class="genres"><span>Smooth R&amp;B</span><span>Late Night</span><span>Soul</span></div></div>
     </div>
   </div>
 </section>
@@ -296,7 +302,7 @@ const ES = {
   feat_s:"Ya sea que hiciste tu primer beat ayer o llevas años produciendo, NOCTIS te da ideas armónicas nuevas en segundos.",
   f1h:"NUEVA VARIANTE", f1p:"Un clic y NOCTIS escribe una progresión nueva que encaja con el género, la tonalidad y el mood que elegiste.",
   f2h:"Perilla COLOR", f2p:"De tríadas limpias a séptimas, extensiones y acordes alterados, sin perder la armonía correcta.",
-  f3h:"Arpegios y groove", f3p:"9 patrones de arpegio (incluido Dembow 3-3-2), 9 ritmos de acordes, strum, swing y humanización.",
+  f3h:"Arpegios y groove", f3p:"17 patrones de arpegio (Dembow 3-3-2, trap roll, drill, log drum de amapiano…), 17 ritmos de acordes, strum, swing y humanización.",
   f4h:"Arrastra a FL Studio", f4p:"Exporta la progresión, el bajo/808 o una melodía como MIDI. Arrastras, sueltas y listo.",
   f5h:"Voice leading", f5p:"Los acordes se conectan con el menor movimiento, o eliges tú la inversión. Suena como un tecladista.",
   f6h:"Sonidos incluidos", f6p:"Piano de cola real (samples Salamander), Rhodes, pads, supersaw, pluck, campanas y órgano.",
@@ -305,10 +311,9 @@ const ES = {
   s1h:"Elige género y mood", s1p:"Selecciona el subgénero, la nota y si es menor o mayor. Gira MOOD para cambiar la intención.",
   s2h:"Toca y escucha", s2p:"Toca una nota en tu teclado MIDI y NOCTIS responde en esa tonalidad. Pulsa NUEVA VARIANTE para más.",
   s3h:"Arrastra el MIDI", s3p:"Lleva acordes, bajo o melodía a FL Studio. Mantén Alt al soltar para no borrar lo que ya tienes.",
-  gen_k:"Géneros", gen_h:"Empieza en el reggaetón. Y sigue creciendo.",
-  gen_s:"Esta versión trae 8 subgéneros de reggaetón con 41 progresiones base, y cada una cambia con COLOR, MOOD y NUEVA VARIANTE.",
+  gen_k:"Géneros", gen_h:"6 géneros urbanos. 25 presets. Listos para usar.", gg1:"Reggaetón",
+  gen_s:"140 progresiones base, y cada una cambia con COLOR, MOOD y NUEVA VARIANTE. Eliges un preset y NOCTIS también pone el ritmo de acordes y el arpegio típicos de ese estilo.",
   g1:"Romántico", g7:"Reggaetón Clásico", g8:"Reggaetón Alternativo",
-  soon1:"Trap · pronto", soon2:"Drill · pronto", soon3:"R&B · pronto", soon4:"Hip-Hop · pronto",
   buy_k:"Precio de lanzamiento", buy_h:"Llévate NOCTIS hoy.",
   once:"Pago único · sin suscripción",
   i1:"Plugin VST3 + app independiente para Windows", i2:"Versión macOS (VST3 + AU) en beta",
