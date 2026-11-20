@@ -74,7 +74,15 @@
   .robot{position:relative;text-align:center}
   .robot::before{content:"";position:absolute;left:50%;top:55%;width:460px;height:460px;transform:translate(-50%,-50%);
                  background:radial-gradient(closest-side,rgba(246,201,53,.45),rgba(246,201,53,0));z-index:0}
-  .robot img{position:relative;z-index:1;width:min(100%,360px);height:auto;filter:drop-shadow(0 30px 30px rgba(60,40,20,.28))}
+  .robot img{position:relative;z-index:1;width:min(100%,360px);height:auto;filter:drop-shadow(0 30px 30px rgba(60,40,20,.28));
+             transform-origin:50% 92%;animation:bob 1.33s ease-in-out infinite}
+  /* El robot "escucha música": asiente al ritmo (~90 BPM), una vez a cada lado */
+  @keyframes bob{
+    0%,50%,100%{transform:translateY(0) rotate(0) scaleY(1)}
+    16%{transform:translateY(7px) rotate(-2deg) scaleY(.985)}
+    66%{transform:translateY(7px) rotate(2deg) scaleY(.985)}
+  }
+  @media (prefers-reduced-motion:reduce){.robot img{animation:none}}
   .dots{position:absolute;right:8%;bottom:14%;display:flex;gap:8px;z-index:2}
   .dots span{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),inset 0 3px 5px rgba(255,255,255,.5),0 4px 8px rgba(0,0,0,.2)}
 
@@ -170,8 +178,8 @@
     <div class="grid">
       <div>
         <span class="tag label"><i></i> <span data-i18n="tag">VST3 · Windows · macOS (beta)</span></span>
-        <h1 data-i18n="h1" data-html>Chords that <em>don't sound</em> like a beginner.</h1>
-        <p class="lead" data-i18n="lead">NOCTIS generates chord progressions, arpeggios, bass and melodies with real color and mood. Play a note, hear the idea, and drag the MIDI straight into your Piano Roll.</p>
+        <h1 data-i18n="h1" data-html><em>EASY</em> chords for <em>PRO</em> producers.</h1>
+        <p class="lead" data-i18n="lead">Just getting started? NOCTIS gives you ready-to-use progressions, arpeggios, bass and melodies. Play one note, hear the idea and drag the MIDI into your Piano Roll. No theory, no hassle.</p>
         <div class="cta">
           <a href="#buy" class="btn btn-yellow" data-i18n="cta_buy">Get NOCTIS</a>
           <a href="#how" class="btn btn-ghost" data-i18n="cta_how">See how it works</a>
@@ -191,7 +199,7 @@
   <div class="wrap">
     <p class="kicker label" data-i18n="feat_k">Features</p>
     <h2 data-i18n="feat_h">Everything you need to get unstuck.</h2>
-    <p class="sub" data-i18n="feat_s">Built for producers who already make beats and want fresh harmonic ideas in seconds.</p>
+    <p class="sub" data-i18n="feat_s">Whether you made your first beat yesterday or you've been producing for years, NOCTIS gives you fresh harmonic ideas in seconds.</p>
     <div class="grid3">
       <div class="card"><div class="knob" style="background:var(--yellow)"></div><h3 data-i18n="f1h">NEW VARIATION</h3><p data-i18n="f1p">One click and NOCTIS writes a new progression that fits the genre, key and mood you chose.</p></div>
       <div class="card"><div class="knob" style="background:var(--red)"></div><h3 data-i18n="f2h">COLOR knob</h3><p data-i18n="f2p">From clean triads to sevenths, extensions and altered chords — the harmony stays correct.</p></div>
@@ -288,12 +296,12 @@ const OLD_PRICE    = "";          // ← precio tachado (vacío = sin precio tac
 const ES = {
   nav_features:"Funciones", nav_how:"Cómo funciona", nav_faq:"Preguntas", nav_buy:"Comprar",
   tag:"VST3 · Windows · macOS (beta)",
-  h1:'Acordes que <em>no suenan</em> a principiante.',
-  lead:"NOCTIS genera progresiones, arpegios, bajos y melodías con color y mood de verdad. Toca una nota, escucha la idea y arrastra el MIDI directo a tu Piano Roll.",
+  h1:'Acordes <em>EASY</em> para productores <em>PRO</em>.',
+  lead:"¿Recién empiezas? NOCTIS te da progresiones, arpegios, bajos y melodías listos para usar. Toca una nota, escucha la idea y arrastra el MIDI a tu Piano Roll. Sin teoría, sin complicaciones.",
   cta_buy:"Quiero NOCTIS", cta_how:"Ver cómo funciona",
   note:"Hecho por GIANBEAT · productor de reggaetón y música urbana",
   feat_k:"Funciones", feat_h:"Todo lo que necesitas para salir del bloqueo.",
-  feat_s:"Pensado para productores que ya saben hacer beats y quieren ideas armónicas nuevas en segundos.",
+  feat_s:"Ya sea que hiciste tu primer beat ayer o llevas años produciendo, NOCTIS te da ideas armónicas nuevas en segundos.",
   f1h:"NUEVA VARIANTE", f1p:"Un clic y NOCTIS escribe una progresión nueva que encaja con el género, la tonalidad y el mood que elegiste.",
   f2h:"Perilla COLOR", f2p:"De tríadas limpias a séptimas, extensiones y acordes alterados, sin perder la armonía correcta.",
   f3h:"Arpegios y groove", f3p:"9 patrones de arpegio (incluido Dembow 3-3-2), 9 ritmos de acordes, strum, swing y humanización.",
