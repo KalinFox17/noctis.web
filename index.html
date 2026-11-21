@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NOCTIS · Chord & arpeggio generator for FL Studio · GIANBEAT MUSIC</title>
-<meta name="description" content="NOCTIS is a VST3 plugin that generates chord progressions, arpeggios, bass and melodies with color and mood. Drag the MIDI straight into FL Studio.">
+<meta name="description" content="NOCTIS is a VST3 / CLAP / AU plugin that generates chord progressions, arpeggios, bass and melodies with color and mood. Drag the MIDI straight into FL Studio.">
 <meta property="og:title" content="NOCTIS · Chords that don't sound like a beginner">
 <meta property="og:description" content="Chord & arpeggio generator plugin by GIANBEAT MUSIC.">
 <meta property="og:image" content="noctis-plugin.jpg">
@@ -171,7 +171,7 @@
   <div class="wrap">
     <div class="grid">
       <div>
-        <span class="tag label"><i></i> <span data-i18n="tag">VST3 · Windows · macOS (beta)</span></span>
+        <span class="tag label"><i></i> <span data-i18n="tag">VST3 · CLAP · AU · Windows · macOS</span></span>
         <h1 data-i18n="h1" data-html><em>EASY</em> chords for <em>PRO</em> producers.</h1>
         <p class="lead" data-i18n="lead">Just getting started? NOCTIS gives you ready-to-use progressions, arpeggios, bass and melodies. Play one note, hear the idea and drag the MIDI into your Piano Roll. No theory, no hassle.</p>
         <div class="cta">
@@ -248,8 +248,8 @@
         <div class="price"><span id="price">US$20</span><span class="old" id="oldPrice"></span></div>
         <p style="color:var(--soft);margin-top:8px" data-i18n="once">One-time payment · no subscription</p>
         <ul class="incl">
-          <li data-i18n="i1">VST3 plugin + standalone app for Windows</li>
-          <li data-i18n="i2">macOS version (VST3 + AU) in beta</li>
+          <li data-i18n="i1">Windows: VST3 + CLAP + standalone app</li>
+          <li data-i18n="i2">macOS: VST3 + AU + CLAP + MIDI FX for Logic</li>
           <li data-i18n="i3">License for 1 computer (move it whenever you switch computers)</li>
           <li data-i18n="i4">Free updates with new genres</li>
           <li data-i18n="i5">Installer in English and Spanish</li>
@@ -267,8 +267,8 @@
     <p class="kicker label" style="text-align:center" data-i18n="faq_k">FAQ</p>
     <h2 style="text-align:center" data-i18n="faq_h">Before you buy.</h2>
     <div class="faq">
-      <details><summary data-i18n="q1">Does it work in FL Studio?</summary><p data-i18n="a1">Yes. NOCTIS is a VST3, so it works in FL Studio and any Windows DAW that supports VST3 (Ableton, Reaper, Studio One, Cubase…).</p></details>
-      <details><summary data-i18n="q2">Does it work on Mac?</summary><p data-i18n="a2">The macOS version (VST3 and AU for Logic/GarageBand) is in beta. It isn't signed by Apple yet, so the first time you open the installer you'll need to right-click it and choose Open.</p></details>
+      <details><summary data-i18n="q1">Does it work in FL Studio?</summary><p data-i18n="a1">Yes. NOCTIS comes as VST3 and CLAP, so it works in FL Studio and in any DAW that supports them (Ableton, Reaper, Studio One, Cubase, Bitwig…).</p></details>
+      <details><summary data-i18n="q2">Does it work on Mac?</summary><p data-i18n="a2">Yes: VST3, AU and CLAP, plus a MIDI FX version for Logic Pro (Intel and Apple Silicon). It isn't signed by Apple yet, so the first time you open the installer, right-click it and choose Open.</p></details>
       <details><summary data-i18n="q3">How do I activate my license?</summary><p data-i18n="a3">After buying you get an email with your key. Open NOCTIS, press PASTE and ACTIVATE. Internet is only needed that first time; then it works offline.</p></details>
       <details><summary data-i18n="q4">On how many computers can I use it?</summary><p data-i18n="a4">Each license works on 1 computer. If you switch computers, press “Release this PC” on the old one and activate it on the new one. If your computer broke, contact us.</p></details>
       <details><summary data-i18n="q5">Can I try it first?</summary><p data-i18n="a5">NOCTIS needs a license to work. Watch it in action on the GIANBEAT YouTube channel before buying.</p></details>
@@ -293,7 +293,7 @@ const OLD_PRICE    = "";          // ← precio tachado (vacío = sin precio tac
 /* ===================== Textos en español ===================== */
 const ES = {
   nav_features:"Funciones", nav_how:"Cómo funciona", nav_faq:"Preguntas", nav_buy:"Comprar",
-  tag:"VST3 · Windows · macOS (beta)",
+  tag:"VST3 · CLAP · AU · Windows · macOS",
   h1:'Acordes <em>EASY</em> para productores <em>PRO</em>.',
   lead:"¿Recién empiezas? NOCTIS te da progresiones, arpegios, bajos y melodías listos para usar. Toca una nota, escucha la idea y arrastra el MIDI a tu Piano Roll. Sin teoría, sin complicaciones.",
   cta_buy:"Quiero NOCTIS", cta_how:"Ver cómo funciona",
@@ -316,13 +316,13 @@ const ES = {
   g1:"Romántico", g7:"Reggaetón Clásico", g8:"Reggaetón Alternativo",
   buy_k:"Precio de lanzamiento", buy_h:"Llévate NOCTIS hoy.",
   once:"Pago único · sin suscripción",
-  i1:"Plugin VST3 + app independiente para Windows", i2:"Versión macOS (VST3 + AU) en beta",
+  i1:"Windows: VST3 + CLAP + app independiente", i2:"macOS: VST3 + AU + CLAP + MIDI FX para Logic",
   i3:"Licencia para 1 computadora (la mueves cuando cambies de PC)", i4:"Actualizaciones gratis con nuevos géneros",
   i5:"Instalador en español e inglés",
   buy_btn:"Comprar ahora", pay:"Pago seguro con tarjeta · procesado por Polar", pay2:"Tu código de licencia llega a tu correo al instante.",
   faq_k:"Preguntas frecuentes", faq_h:"Antes de comprar.",
-  q1:"¿Funciona en FL Studio?", a1:"Sí. NOCTIS es VST3, así que funciona en FL Studio y en cualquier DAW de Windows que acepte VST3 (Ableton, Reaper, Studio One, Cubase…).",
-  q2:"¿Funciona en Mac?", a2:"La versión para macOS (VST3 y AU para Logic/GarageBand) está en beta. Aún no está firmada por Apple, así que la primera vez tendrás que abrir el instalador con clic derecho > Abrir.",
+  q1:"¿Funciona en FL Studio?", a1:"Sí. NOCTIS viene en VST3 y CLAP, así que funciona en FL Studio y en cualquier DAW que los acepte (Ableton, Reaper, Studio One, Cubase, Bitwig…).",
+  q2:"¿Funciona en Mac?", a2:"Sí: VST3, AU y CLAP, más una versión MIDI FX para Logic Pro (Intel y Apple Silicon). Aún no está firmada por Apple, así que la primera vez abre el instalador con clic derecho > Abrir.",
   q3:"¿Cómo activo mi licencia?", a3:"Después de comprar te llega un correo con tu código. Abres NOCTIS, pulsas PEGAR y ACTIVAR. Solo se necesita internet esa primera vez; luego funciona sin conexión.",
   q4:"¿En cuántas computadoras puedo usarlo?", a4:"Cada licencia funciona en 1 computadora. Si cambias de PC, pulsa “Liberar esta PC” en la antigua y actívalo en la nueva. Si tu PC se malogró, escríbenos.",
   q5:"¿Puedo probarlo antes?", a5:"NOCTIS necesita licencia para funcionar. Míralo en acción en el canal de YouTube de GIANBEAT antes de comprar.",
